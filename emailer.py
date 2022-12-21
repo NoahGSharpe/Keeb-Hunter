@@ -1,5 +1,6 @@
 from smtplib import SMTP_SSL
-import dotenv
+from dotenv import load_dotenv
+import os
 
 
 class Emailer:
@@ -14,10 +15,11 @@ class Emailer:
         self.password = os.environ['BOT_EMAIL_PASSWORD']
         self.target_email = os.environ['MY_EMAIL_ADDRESS']
 
-    def send_email(self, message):
+    def send_email(self, subject, message):
         with SMTP_SSL(self.server, self.port) as smtp:
             # Login
-            smtp.login(self.username, self.password)
+            smtp.login(self.email, self.password)
 
             # Send email
-            smtp.sendmail(self.username, self.target_email, message)
+            msg = "Subject: %s\n\n%s" % (subject, message)
+            smtp.sendmail(self.email, self.target_email, msg)
