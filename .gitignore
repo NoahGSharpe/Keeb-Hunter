@@ -130,3 +130,6 @@ dmypy.json
 
 # Storage text file
 storage.txt
+
+# Test file
+test.py
