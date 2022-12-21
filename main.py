@@ -37,7 +37,7 @@ def Comment_On_New_Giveaways(posts):
     for post in posts:
         if (post.id not in visited_post_ids and post.title.lower().find('giveaway') != -1 or post.link_flair_text == "Giveaway"):
             # Comment on the post
-            post.add_comment('Thanks for the giveaway')
+            post.reply('Thanks for the giveaway')
 
             # Add post id to list
             visited_post_ids.add(post.id)
