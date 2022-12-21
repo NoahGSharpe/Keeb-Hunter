@@ -2,7 +2,7 @@ import os
 import praw
 import time
 from dotenv import load_dotenv
-
+from emailer import Emailer
 
 # Load environment variables
 load_dotenv()
@@ -26,6 +26,9 @@ print(f"Logged in as {reddit.user.me()}\n")
 # Instantiate subreddit
 subreddit = reddit.subreddit('MechanicalKeyboards')
 
+# Create emailer
+emailer = Emailer()
+
 # Access already visited posts
 with open('storage.txt', 'r') as file:
     contents = file.read()
@@ -37,7 +40,10 @@ def Comment_On_New_Giveaways(posts):
     for post in posts:
         if (post.id not in visited_post_ids and post.title.lower().find('giveaway') != -1 or post.link_flair_text == "Giveaway"):
             # Comment on the post
-            post.reply('Thanks for the giveaway')
+            my_comment = 'Thanks for the giveaway'
+            post.reply(my_comment)
+            print(
+                f"Commented on this post: {post.title}\nComment: {my_comment}\n")
 
             # Add post id to list
             visited_post_ids.add(post.id)
@@ -45,6 +51,10 @@ def Comment_On_New_Giveaways(posts):
             # Append post id to file
             with open('storage.txt', 'a') as file:
                 file.write(f"\n{post.id}")
+
+            # Send email
+            emailer.send_email('Beep Boop. Keeb Hunter Entered Another Giveaway!',
+                               f"{post.title}\n\nComment: {my_comment}\n\nhttps://www.reddit.com{post.permalink}")
 
 
 # Grab most recent posts
