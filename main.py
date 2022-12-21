@@ -4,20 +4,6 @@ import time
 from dotenv import load_dotenv
 
 
-def Comment_On_New_Giveaways(posts):
-    for post in posts:
-        if (post.id not in visited_post_ids and post.title.lower().find('giveaway') != -1 or post.link_flair_text == "Giveaway"):
-            # Comment on the post
-            post.add_comment('Thanks for the giveaway')
-
-            # Add post id to list
-            visited_post_ids.add(post.id)
-
-            # Append post id to file
-            with open('storage.txt', 'a') as file:
-                file.write(f"\n{post.id}")
-
-
 # Load environment variables
 load_dotenv()
 CLIENT_ID = os.environ['CLIENT_ID']
@@ -44,6 +30,22 @@ subreddit = reddit.subreddit('MechanicalKeyboards')
 with open('storage.txt', 'r') as file:
     contents = file.read()
     visited_post_ids = set(contents.split('\n'))
+
+
+# Function that takes in a list of posts and comments on the new ones
+def Comment_On_New_Giveaways(posts):
+    for post in posts:
+        if (post.id not in visited_post_ids and post.title.lower().find('giveaway') != -1 or post.link_flair_text == "Giveaway"):
+            # Comment on the post
+            post.add_comment('Thanks for the giveaway')
+
+            # Add post id to list
+            visited_post_ids.add(post.id)
+
+            # Append post id to file
+            with open('storage.txt', 'a') as file:
+                file.write(f"\n{post.id}")
+
 
 # Grab most recent posts
 print('Finding new giveaway posts\n')
