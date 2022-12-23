@@ -11,7 +11,8 @@ After that, it will check for new posts it hasn't commented on every ten seconds
 # How to use
 
 1. Download `main.py` and `emailer.py`
-2. Create a file called `.env` and include the following environment variables
+2. You need Praw and Dotenv to run the code, so if you haven't alreadly installed those you can install them via `pip install Praw` and `pip install python-dotenv`. If you run into problems with that, verify that you have pip installed. If you do and it still isn't working you can try using `pip3` instead of `pip` in your commands. 
+3. Create a file called `.env` and include the following environment variables
    - CLIENT_ID='client id of your reddit api'
    - SECRET_KEY='secret key of your reddit api'
    - USER_AGENT='A name for your reddit api/bot'
@@ -20,7 +21,7 @@ After that, it will check for new posts it hasn't commented on every ten seconds
    - BOT_EMAIL_ADDRESS='your bots email address'
    - BOT_EMAIL_PASSWORD='the app password of your bots google account'
    - MY_EMAIL_ADDRESS='your email address the emails will be sent to'
-3. Create an empty storage.txt file
-4. Run `main.py`
+4. Create an empty storage.txt file
+5. Run `main.py`
 
 Note: Put all your files in the same directory
